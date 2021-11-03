@@ -244,10 +244,10 @@ public class Kernel
         
         switch (this.tipoDeParticionamento)
         {
+            boolean processoAlocado = false;
             case PARTICOES_FIXAS:
                 int particoesNecessarias = (int) Math.ceil(novoProcesso.getTamanho() / this.tamanhoDaParticao);
                 int contaParticoesLivres = 0;
-                boolean processoAlocado = false;
                 for (int i = 0; i < this.tamanhoMemoria; i += this.tamanhoDaParticao)
                 {
                     if (this.memoria[i] == null)
@@ -264,14 +264,38 @@ public class Kernel
                         }
                     }
                 }
-                if (!processoAlocado)
-                {   
-                    System.out.println("ESPACO INSUFICIENTE DE MEMORIA. Processo " + novoProcesso.getNomeDoPrograma() + " nao alocado.");
-                }
                 break;
             case PARTICOES_VARIAVEIS:
-                
-                break;        
+                switch(politicaDeAlocacao)
+                {
+                    case FIRST_FIT:
+                        int contaEspacosLivres = 0;
+                        for(int i = 0; i < this.tamanhoMemoria; i++)
+                        {
+                            if(this.memoria[i] == null)
+                            {
+                                contaEspacosLivres++;
+                                if(contaEspacosLivres == novoProcesso.getTamanho())
+                                {
+                                    for(int j = i - novoProcesso.getTamanho(); j < j + novoProcesso.getTamanho(); j++)
+                                    {
+                                        this.memoria[j] = novoProcesso.getNomeDoPrograma();
+                                        processoAlocado = true;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    case WORST_FIT:
+                        
+                        break;
+                }
+                break;
+        }
+        if(!processoAlocado)
+        {
+            System.out.println("ESPACO INSUFICIENTE DE MEMORIA. Processo " + novoProcesso.getNomeDoPrograma() + " nao alocado.");
         }
     }
 

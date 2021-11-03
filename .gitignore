@@ -1,9 +1,9 @@
+
 # Created by https://www.toptal.com/developers/gitignore/api/java,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,visualstudiocode
 
 ### Java ###
 # Compiled class file
-#bin/
 *.class
 
 # Log file
@@ -16,7 +16,7 @@
 .mtj.tmp/
 
 # Package Files #
-#*.jar
+*.jar
 *.war
 *.nar
 *.ear
@@ -29,6 +29,11 @@ hs_err_pid*
 
 ### VisualStudioCode ###
 .vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 
 # Local History for Visual Studio Code
 .history/
@@ -37,5 +42,8 @@ hs_err_pid*
 # Ignore all local history of files
 .history
 .ionide
+
+# Support for Project snippet scope
+!.vscode/*.code-snippets
 
 # End of https://www.toptal.com/developers/gitignore/api/java,visualstudiocode

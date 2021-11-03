@@ -30,7 +30,7 @@ Para recompilar o projeto, executar o seguinte script no terminal do sistema ope
 
 ### Parâmetros da linha de comando:
 
-> USO: `java -jar OS.jar -P [PF tamanho_da_particao | PV politica_de_alocacao [FF | WF]] -M tamanho_da_memoria -A nome_do_arquivo`
+> USO: `java -jar OS.jar -T [PF tamanho_da_particao | PV politica_de_alocacao [FF | WF]] -M tamanho_da_memoria -A nome_do_arquivo`
 
 `-P`                            Define o tipo de particionamento
 + `PF`                          Escolhe o particionamento fixo

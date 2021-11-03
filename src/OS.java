@@ -12,13 +12,13 @@ public class OS {
             return;
         }
 
-        if (args[0].toUpperCase().equals("-T")) 
+        if (args[0].toUpperCase().equals("-T"))
         {
             OS.verbose = true;
             System.out.println("================ MODO TESTE ================");
-            String[] argsTeste = {"oi1", "-1l", "-oi2", "-p", "pp", "10", "-l", "d", "teste.txt", "Prog1.txt", "1", "Prog1.txt", "0","Prog2.txt", "0", "Prog3.txt", "2", "-v"};
+            String[] argsTeste = {"oi1", "-1l", "-oi2", "-p", "PF", "4", "-m", "16", "-a", "teste.txt", "-v"};
             Kernel testeOs = new Kernel(argsTeste);
-            testeOs.escalonador();
+            testeOs.run();
             return;
         }
 
@@ -26,15 +26,13 @@ public class OS {
         // Trata exceções do construtor e de execução
         try {
             polvoOs = new Kernel(args);
-            polvoOs.escalonador();
+            polvoOs.run();
         } catch (InvalidParameterException e) {
             System.out.println(e.getMessage());
             imprimeLinhaDeComando();
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
         }
-        
-        System.exit(0);
     }
     
 	public static void imprimeHelp()
@@ -54,13 +52,11 @@ public class OS {
         System.out.println("lista_de_programas [arrival_time] [prioridade]\n\t\tIndica o(s) programa(s) a ser(em) carregado(s)");
         System.out.println();
         System.out.println("arrival_time\tDefine o tempo de chegada de cada processo (tempo do passos de execucao do OS)");
-        System.out.println("indefinido\ttempo de execucao padrao (" + Kernel.ARRIVAL_TIME_PADRAO + ")");
         System.out.println();
         System.out.println("prioridade\tDefine a prioridade de execucao de cada processo (requer politica PP):");
         System.out.println("0\t\tprioridade ALTA");
         System.out.println("1\t\tprioridade MEDIA");
         System.out.println("2\t\tprioridade BAIXA");
-        System.out.println("indefinida\tprioridade padrao (" + Kernel.PRIORIDADE_PADRAO + ")");
         System.out.println();
         System.out.println("-V\t\tHabilita o MODO VERBOSO");
 	}

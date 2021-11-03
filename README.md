@@ -23,37 +23,28 @@ Os programas para execução deverão ser colocados na pasta `apps`.
 ## Instruções
 
 Para executar o OS, executar no terminal do sistema operacional o seguinte comando:
-> `java -jar OS.jar [-T | -P politica -L lista_de_programas [arrival_time] [prioridade] [-V]]]`
+> `java -jar OS.jar -P PF [tamanho_da_particao] | PV  [politica_de_alocacao] -M tamanho_da_memoria -A nome_do_arquivo`
 
 Para recompilar o projeto, executar o seguinte script no terminal do sistema operacional (necessita JDK instalado):
 > `./compila.sh`
 
 ### Parâmetros da linha de comando:
 
-> USO: `java -jar OS.jar [-T | -P politica -L lista_de_programas [arrival_time] [prioridade] [-V]]]`
+> USO: `java -jar OS.jar -P [PF tamanho_da_particao | PV politica_de_alocacao [FF | WF]] -M tamanho_da_memoria -A nome_do_arquivo`
 
-`-T`              Executa o MODO DE TESTE (ignora demais argumentos)
+`-P`                            Define o tipo de particionamento
++ `PF`                          Escolhe o particionamento fixo
+    + `tamanho_da_particao`     Define o tamanho da particao (deve ser potencia de 2)
++ `PV`                          Escolhe o particionamento variavel
+    + `politica_de_alocacao`    Define a politica de alocacao: 
+        + `FF` politica First-fit
+        + `WF` politica Worst-fit
 
-`-P`              Define a politica de escalonamento
+`-M`                            Define o tamanho da memoria
++ `tamanho_da_memoria`          Define o tamanho em posicoes de memoria (deve ser potencia de 2)
 
-`politica`        Escolhe a politica de escalonamento:
-+ `PP`             PRIORIDADE COM PREEMPCAO
-+ `RR quantum`     ROUND ROBIN com quantum
-    + `quantum`     Define numero de passos executado por cada processo
-
-`-L`              Define a lista de programas a ser executado
-
-+ `lista_de_programas [arrival_time] [prioridade]`
-    Indica o(s) programa(s) a ser(em) carregado(s)
-
-    + `arrival_time` Define o tempo de chegada de cada processo (tempo do passos de execucao do OS)
-        + `indefinido` tempo de execucao padrao (0)
-
-    + `prioridade`   Define a prioridade de execucao de cada processo (requer politica PP):
-        + `0`          prioridade ALTA
-        + `1`          prioridade MEDIA
-        + `2`          prioridade BAIXA
-        + `indefinida` prioridade padrao (2)
+`-A`                            Define o arquivo
++ `nome_do_arquivo`             Define o nome do arquivo (case-sensitive)
 
 `-V`              Habilita o MODO VERBOSO
 

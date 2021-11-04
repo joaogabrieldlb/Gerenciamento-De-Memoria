@@ -432,25 +432,25 @@ public class Kernel implements PrimitivasDeMemoria
         System.out.println("MEMORIA LIVRE = " + memoriaLivre + " posicoes");
 
         System.out.print("| ");
-        int count = 0;
+        int contEspacosLivres = 0;
         for (int i = 0; i < this.tamanhoMemoria; i++)
         {
             if (this.memoria[i] == null)
             {
-                count++;
+                contEspacosLivres++;
             }
             else
             {
-                if (count > 0)
+                if (contEspacosLivres > 0)
                 {
-                    System.out.print(count + " | ");
-                    count = 0;
+                    System.out.print(contEspacosLivres + " | ");
+                    contEspacosLivres = 0;
                 }
             }
         }
-        if (count != 0)
+        if (contEspacosLivres != 0)
         {
-            System.out.print(count + " | ");
+            System.out.print(contEspacosLivres + " | ");
         }
         System.out.println();
         // blocos livres

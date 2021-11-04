@@ -1,4 +1,4 @@
-# TP2 - Projeto Gerenciamento de Memória
+# TP2 - Projeto de Gerenciamento de Memória
 
 Trabalho de desenvolvimento de um OS com políticas de alocação de espaços de memória para processos, para a disciplina de Sistemas Operacionais do curso de Sistemas de Informação da PUCRS.
 
@@ -23,22 +23,22 @@ Os programas para execução deverão ser colocados na pasta `apps`.
 ## Instruções
 
 Para executar o OS, executar no terminal do sistema operacional o seguinte comando:
-> `java -jar OS.jar -P PF [tamanho_da_particao] | PV  [politica_de_alocacao] -M tamanho_da_memoria -A nome_do_arquivo`
+> `java -jar OS.jar -P [PF tamanho_da_particao | PV politica_de_alocacao [FF | WF]] -M tamanho_da_memoria -A nome_do_arquivo [-V]`
 
 Para recompilar o projeto, executar o seguinte script no terminal do sistema operacional (necessita JDK instalado):
 > `./compila.sh`
 
 ### Parâmetros da linha de comando:
 
-> USO: `java -jar OS.jar -T [PF tamanho_da_particao | PV politica_de_alocacao [FF | WF]] -M tamanho_da_memoria -A nome_do_arquivo`
+> USO: `java -jar OS.jar -P [PF tamanho_da_particao | PV politica_de_alocacao [FF | WF]] -M tamanho_da_memoria -A nome_do_arquivo [-V]`
 
-`-P`                            Define o tipo de particionamento
-+ `PF`                          Escolhe o particionamento fixo
+`-P`                            Define o tipo de particionamento:
++ `PF`                          PARTICIONAMENTO FIXO
     + `tamanho_da_particao`     Define o tamanho da particao (deve ser potencia de 2)
-+ `PV`                          Escolhe o particionamento variavel
-    + `politica_de_alocacao`    Define a politica de alocacao: 
-        + `FF` politica First-fit
-        + `WF` politica Worst-fit
++ `PV`                          PARTICIONAMENTO VARIAVEL
+    + `politica_de_alocacao`    Define a politica de alocacao:
+        + `FF` FIRST-FIT
+        + `WF` WORST-FIT
 
 `-M`                            Define o tamanho da memoria
 + `tamanho_da_memoria`          Define o tamanho em posicoes de memoria (deve ser potencia de 2)

@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 public class Processo
 {
     private String nomeDoPrograma;
@@ -28,16 +26,8 @@ public class Processo
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Processo processo = (Processo) o;
-        return Objects.equals(nomeDoPrograma, processo.nomeDoPrograma);
-    }
-
-    @Override
     public String toString() {
-        return "Processo [nomeDoPrograma=" + nomeDoPrograma + ", posicaoDeMemoria=" + posicaoDeMemoria + ", tamanho="
+        return "[nomeDoPrograma=" + nomeDoPrograma + ", posicaoDeMemoria=" + posicaoDeMemoria + ", tamanho="
                 + tamanho + "]";
     }
 }

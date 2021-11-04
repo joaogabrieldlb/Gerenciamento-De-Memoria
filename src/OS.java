@@ -6,37 +6,38 @@ public class OS {
     public static final String appsDirectory = "apps";
     public static void main(String[] args)
     {
-        if (args.length == 0)
-        {
-            imprimeHelp();
-            return;
-        }
+        // if (args.length == 0)
+        // {
+        //     imprimeHelp();
+        //     return;
+        // }
 
-        if (args[0].toUpperCase().equals("-T"))
+        // if (args[0].toUpperCase().equals("-T"))
         {
-            OS.verbose = true;
-            System.out.println("================ MODO TESTE ================");
-            String[] argsTeste = {"oi1", "-1l", "-oi2", "-p", "PF", "4", "-m", "16", "-a", "teste.txt", "-v"};
+            //OS.verbose = true;
+            // System.out.println("================ MODO TESTE ================");
+            String[] argsTeste = {"oi1", "-1l", "-oi2", "-p", "pv", "ff", "-m", "16", "-a", "exemplo2.txt", "-v"};
             Kernel testeOs = new Kernel(argsTeste);
             testeOs.run();
             return;
         }
 
-        Kernel polvoOs = null;
-        // Trata exceções do construtor e de execução
-        try {
-            polvoOs = new Kernel(args);
-            polvoOs.run();
-        } catch (InvalidParameterException e) {
-            System.out.println(e.getMessage());
-            imprimeLinhaDeComando();
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-        }
+        // Kernel polvoOs = null;
+        // // Trata exceções do construtor e de execução
+        // try {
+        //     polvoOs = new Kernel(args);
+        //     polvoOs.run();
+        // } catch (InvalidParameterException e) {
+        //     System.out.println(e.getMessage());
+        //     imprimeLinhaDeComando();
+        // } catch (RuntimeException e) {
+        //     System.out.println(e.getMessage());
+        // }
     }
     
 	public static void imprimeHelp()
     {
+        // TODO: Reescrever help
         System.out.println("Inicia o OS.");
         imprimeLinhaDeComando();
         System.out.println();
@@ -63,8 +64,8 @@ public class OS {
 
     public static void imprimeLinhaDeComando()
     {
-        System.out.println("\nUSO: java -jar OS.jar [-T | -P politica -L lista_de_programas [arrival_time] [prioridade] [-V]]]");
-        System.out.println("\nUSO: java -jar OS.jar [-PF | -PV [tamanho_da_particao] [politica_de_alocacao]]");
+        // System.out.println("\nUSO: java -jar OS.jar [-T | -P politica -L lista_de_programas [arrival_time] [prioridade] [-V]]]");
+        System.out.println("\nUSO: java -jar OS.jar -P [-PF tamanho_da_particao | -PV politica_de_alocacao [FF | WF]] -M tamanho_da_memoria -A nome_do_arquivo [-V]");
     }
 
 }

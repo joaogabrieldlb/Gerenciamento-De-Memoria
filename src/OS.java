@@ -6,33 +6,32 @@ public class OS {
     public static final String appsDirectory = "apps";
     public static void main(String[] args)
     {
-        // if (args.length == 0)
-        // {
-        //     imprimeHelp();
-        //     return;
-        // }
-
-        // if (args[0].toUpperCase().equals("-T"))
+        if (args.length == 0)
         {
-            //OS.verbose = true;
-            // System.out.println("================ MODO TESTE ================");
+            imprimeHelp();
+            return;
+        }
+
+        if (args[0].toUpperCase().equals("-T"))
+        {
+            System.out.println("================ MODO TESTE ================");
             String[] argsTeste = {"oi1", "-1l", "-oi2", "-p", "pv", "ff", "-m", "16", "-a", "exemplo2.txt", "-v"};
             Kernel testeOs = new Kernel(argsTeste);
             testeOs.run();
             return;
         }
 
-        // Kernel polvoOs = null;
-        // // Trata exceções do construtor e de execução
-        // try {
-        //     polvoOs = new Kernel(args);
-        //     polvoOs.run();
-        // } catch (InvalidParameterException e) {
-        //     System.out.println(e.getMessage());
-        //     imprimeLinhaDeComando();
-        // } catch (RuntimeException e) {
-        //     System.out.println(e.getMessage());
-        // }
+        Kernel polvoOs = null;
+        // Trata exceções do construtor e de execução
+        try {
+            polvoOs = new Kernel(args);
+            polvoOs.run();
+        } catch (InvalidParameterException e) {
+            System.out.println(e.getMessage());
+            imprimeLinhaDeComando();
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
     
 	public static void imprimeHelp()

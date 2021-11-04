@@ -3,8 +3,10 @@ public class Processo
     private String nomeDoPrograma;
     private int tamanho;
     private int posicaoDeMemoria;
+    private final long pid;
 
-    public Processo(String nomeDoPrograma, int tamanho) {
+    public Processo(long pid, String nomeDoPrograma, int tamanho) {
+        this.pid = pid;
         this.nomeDoPrograma = nomeDoPrograma;
         this.tamanho = tamanho;
     }
@@ -27,7 +29,7 @@ public class Processo
 
     @Override
     public String toString() {
-        return "[nomeDoPrograma=" + nomeDoPrograma + ", posicaoDeMemoria=" + posicaoDeMemoria + ", tamanho="
+        return "Processo [pid=" + pid + ", nomeDoPrograma=" + nomeDoPrograma + ", posicaoDeMemoria=" + posicaoDeMemoria + ", tamanho="
                 + tamanho + "]";
     }
 }

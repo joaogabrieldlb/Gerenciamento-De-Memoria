@@ -15,6 +15,8 @@ public class Kernel implements PrimitivasDeMemoria
     private Programa arquivoDeExecucao;
     private List<Processo> listaDeProcessos = new ArrayList<>();
     private int passoDeExecucao = 0;
+    private long pidCounter = 1;
+
 
     // Definicao da politica de alocacao
     enum TipoDeParticao { PARTICOES_FIXAS, PARTICOES_VARIAVEIS };
@@ -241,7 +243,8 @@ public class Kernel implements PrimitivasDeMemoria
             return;
         }
 
-        Processo novoProcesso = new Processo(nomeDoProcesso, tamanhoDoProcesso);
+        Processo novoProcesso = new Processo(pidCounter, nomeDoProcesso, tamanhoDoProcesso);
+        pidCounter++;
         boolean processoAlocado = false;
         int posicaoInicial = 0;
         switch (this.tipoDeParticionamento)
@@ -415,6 +418,8 @@ public class Kernel implements PrimitivasDeMemoria
         }
         // VERBOSE
         if (OS.verbose) imprimeDetalhesMemoria();
+
+        System.out.println("=========================================");
     }
 
     private void imprimeDetalhesMemoria()
@@ -453,8 +458,14 @@ public class Kernel implements PrimitivasDeMemoria
         // processos
         System.out.println("LISTA DE PROCESSOS:");
         listaDeProcessos.sort((p1, p2) -> p1.getPosicaoDeMemoria() - p2.getPosicaoDeMemoria());
-        listaDeProcessos.forEach(p -> System.out.println("Processo #" + listaDeProcessos.indexOf(p) + " " + p.toString()));
+        if (listaDeProcessos.size() > 0)
+        {
+            listaDeProcessos.forEach(p -> System.out.println(p.toString()));
+        }	
+        else
+        {
+            System.out.println("Nenhum processo alocado.");
+        }
 
-        System.out.println("=========================================");
     }
 }

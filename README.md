@@ -23,14 +23,16 @@ Os programas para execução deverão ser colocados na pasta `apps`.
 ## Instruções
 
 Para executar o OS, executar no terminal do sistema operacional o seguinte comando:
-> `java -jar OS.jar -P [PF tamanho_da_particao | PV politica_de_alocacao [FF | WF]] -M tamanho_da_memoria -A nome_do_arquivo [-V]`
+> `java -jar OS.jar [-T | -P [-PF tamanho_da_particao | -PV politica_de_alocacao [FF | WF]] -M tamanho_da_memoria -A nome_do_arquivo [-V]]`
 
 Para recompilar o projeto, executar o seguinte script no terminal do sistema operacional (necessita JDK instalado):
 > `./compila.sh`
 
 ### Parâmetros da linha de comando:
 
-> USO: `java -jar OS.jar -P [PF tamanho_da_particao | PV politica_de_alocacao [FF | WF]] -M tamanho_da_memoria -A nome_do_arquivo [-V]`
+> USO: `java -jar OS.jar [-T | -P [-PF tamanho_da_particao | -PV politica_de_alocacao [FF | WF]] -M tamanho_da_memoria -A nome_do_arquivo [-V]]`
+
+`-T`                            Executa o MODO DE TESTE (ignora demais argumentos)
 
 `-P`                            Define o tipo de particionamento:
 + `PF`                          PARTICIONAMENTO FIXO
@@ -46,13 +48,17 @@ Para recompilar o projeto, executar o seguinte script no terminal do sistema ope
 `-A`                            Define o arquivo
 + `nome_do_arquivo`             Define o nome do arquivo (case-sensitive)
 
-`-V`              Habilita o MODO VERBOSO
+`-V`                            Habilita o MODO VERBOSO
 
 Exemplos:
 > `java -jar OS.jar -t`
 > 
 > Executa o OS em MODO DE TESTE
 
-> `java -jar OS.jar -p pp -l teste.txt 1 -v`
+> `java -jar OS.jar -p pf 4 -m 16 -a teste.txt -v`
 > 
-> Executa o OS com a política de PRIORIDADE COM PREEMPÇÃO, o programa "teste.txt" (presente na pasta `apps`), com tempo de chegada no passo de execução 1, com a prioridade padrão e no MODO VERBOSO
+> Executa o OS com o tipo de PARTICIONAMENTO FIXO, define o tamanho da particao (4), o tamanho da memoria em posicoes de memoria (16), o programa "teste.txt" (presente na pasta `apps`) e executa em MODO VERBOSO
+
+> `java -jar OS.jar -p pv wf -m 8 -a teste.txt -v`
+> 
+> Executa o OS com o tipo de PARTICIONAMENTO VARIAVEL, define a politica de alocacao (WORST_FIT), o tamanho da memoria em posicoes de memoria (8), o programa "teste.txt" (presente na pasta `apps`) e executa em MODO VERBOSO

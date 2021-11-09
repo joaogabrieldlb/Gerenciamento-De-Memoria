@@ -15,7 +15,7 @@ public class OS {
         if (args[0].toUpperCase().equals("-T"))
         {
             System.out.println("================ MODO TESTE ================");
-            String[] argsTeste = {"oi1", "-1l", "-oi2", "-p", "pv", "ff", "-m", "16", "-a", "exemplo2.txt", "-v"};
+            String[] argsTeste = {"-opcao_ignorada1", "complemento_ignorado1", "-p", "pv", "ff", "-m", "8", "-a", "teste.txt", "-v", "parametro_ignorado1"};
             Kernel testeOs = new Kernel(argsTeste);
             testeOs.run();
             return;
@@ -63,8 +63,7 @@ public class OS {
 
     public static void imprimeLinhaDeComando()
     {
-        // System.out.println("\nUSO: java -jar OS.jar [-T | -P politica -L lista_de_programas [arrival_time] [prioridade] [-V]]]");
-        System.out.println("\nUSO: java -jar OS.jar -P [-PF tamanho_da_particao | -PV politica_de_alocacao [FF | WF]] -M tamanho_da_memoria -A nome_do_arquivo [-V]");
+        System.out.println("\nUSO: java -jar OS.jar [-T | -P [-PF tamanho_da_particao | -PV politica_de_alocacao [FF | WF]] -M tamanho_da_memoria -A nome_do_arquivo [-V]]");
     }
 
 }

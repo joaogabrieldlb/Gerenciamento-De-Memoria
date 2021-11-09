@@ -4,7 +4,9 @@ import java.nio.file.Paths;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Kernel implements PrimitivasDeMemoria
 {
@@ -304,7 +306,7 @@ public class Kernel implements PrimitivasDeMemoria
                         {
                             if(this.memoria[i] == null)
                             {
-                                int contaEspacosLivresWF = 1;
+                                int contaEspacosLivresWF = 0;
                                 int posicaoInicialIndice = i;
                                 for ( ; i < this.tamanhoMemoria; i++)
                                 {
@@ -344,30 +346,30 @@ public class Kernel implements PrimitivasDeMemoria
         }
         else
         {
-            System.out.println("ESPACO INSUFICIENTE DE MEMORIA. Processo " + novoProcesso.getNomeDoPrograma() + " nao alocado.");
+            System.out.println("ERRO> ESPACO INSUFICIENTE DE MEMORIA. Processo \"" + novoProcesso.getNomeDoPrograma() + "\" nao alocado na memoria.");
         }
     }
     
     public void comandoOUT(String parametro)
     {
-            // VERBOSE
-            if (OS.verbose) System.out.println("PROCESSANDO INSTRUCAO \"OUT\"");
-            if (OS.verbose) System.out.println("PARAMETRO: " + parametro);
-            
-            String nomeDoProcesso = parametro;
-            Processo processo = this.listaDeProcessos.stream().filter(p -> p.getNomeDoPrograma().equals(nomeDoProcesso)).findFirst().orElse(null);
-            if (processo != null)
+        // VERBOSE
+        if (OS.verbose) System.out.println("PROCESSANDO INSTRUCAO \"OUT\"");
+        if (OS.verbose) System.out.println("PARAMETRO: " + parametro);
+        
+        String nomeDoProcesso = parametro;
+        Processo processo = this.listaDeProcessos.stream().filter(p -> p.getNomeDoPrograma().equals(nomeDoProcesso)).findFirst().orElse(null);
+        if (processo != null)
+        {
+            for (int i = processo.getPosicaoDeMemoria(); i < processo.getPosicaoDeMemoria() + processo.getTamanho(); i++)
             {
-                for (int i = processo.getPosicaoDeMemoria(); i < processo.getPosicaoDeMemoria() + processo.getTamanho(); i++)
-                {
-                    this.memoria[i] = null;
-                }
-                this.listaDeProcessos.remove(processo);
+                this.memoria[i] = null;
             }
-            else
-            {
-                System.err.println("PROCESSO NAO ENCONTRADO. Processo " + nomeDoProcesso + " nao encontrado.");
-            }
+            this.listaDeProcessos.remove(processo);
+        }
+        else
+        {
+            System.err.println("ERRO> PROCESSO NAO ENCONTRADO. Processo \"" + nomeDoProcesso + "\" nao encontrado alocado na memoria.");
+        }
     }
 
     private void imprimeEstado()
@@ -416,21 +418,17 @@ public class Kernel implements PrimitivasDeMemoria
                 System.out.println();
                 break;
         }
+
+        imprimeResumoMemoriaLivre();
         // VERBOSE
         if (OS.verbose) imprimeDetalhesMemoria();
 
         System.out.println("=========================================");
     }
 
-    private void imprimeDetalhesMemoria()
+    private void imprimeResumoMemoriaLivre()
     {
-        System.out.println("=========== DETALHES MEMORIA ============");
-        // tamanho total
-        System.out.println("TAMANHO TOTAL = " + this.tamanhoMemoria + " posicoes");
-        // memoria livre
-        long memoriaLivre = Arrays.stream(this.memoria).filter(p -> p == null).count();
-        System.out.println("MEMORIA LIVRE = " + memoriaLivre + " posicoes");
-
+        System.out.println("======== RESUMO DA MEMORIA LIVRE ========");
         System.out.print("| ");
         int contEspacosLivres = 0;
         for (int i = 0; i < this.tamanhoMemoria; i++)
@@ -450,13 +448,81 @@ public class Kernel implements PrimitivasDeMemoria
         }
         if (contEspacosLivres != 0)
         {
-            System.out.print(contEspacosLivres + " | ");
+            System.out.print(contEspacosLivres);
         }
-        System.out.println();
+        System.out.println(" |");
+    }
+
+    private void imprimeDetalhesMemoria()
+    {
+        System.out.println("========== DETALHES DA MEMORIA ==========");
+        // tamanho total
+        System.out.println("TAMANHO TOTAL = " + this.tamanhoMemoria + " posicoes");
+        
+        // tamanho ocupada
+        long memoriaOcupada = Arrays.stream(this.memoria).filter(p -> p != null).count();
+        System.out.println("MEMORIA OCUPADA = " + (memoriaOcupada) + " posicoes");
+        // memoria livre
+        System.out.println("MEMORIA LIVRE = " + (this.tamanhoMemoria - memoriaOcupada) + " posicoes");
+
         // blocos livres
-        // TODO: implementar blocos livres
+        switch (this.tipoDeParticionamento)
+        {
+            case PARTICOES_FIXAS:
+                long blocosDeMemoriaLivre = 0;
+                String listaBlocosDeMemoriaLivre = "[";
+                for (int i = 0; i < tamanhoMemoria; i += tamanhoDaParticao)
+                {
+                    if (this.memoria[i] == null)
+                    {
+                        if (listaBlocosDeMemoriaLivre.length() > 1)
+                        {
+                            listaBlocosDeMemoriaLivre += ", ";
+                        }
+                        listaBlocosDeMemoriaLivre += "Bloco #" + blocosDeMemoriaLivre;
+                        blocosDeMemoriaLivre++;
+                    }
+                }
+                listaBlocosDeMemoriaLivre += "]";
+                System.out.print("BLOCOS DE MEMORIA LIVRE: " + blocosDeMemoriaLivre);
+                System.out.println(" " + listaBlocosDeMemoriaLivre);
+                
+                break;
+            case PARTICOES_VARIAVEIS:
+                Map<Integer, Integer> mapaDeBlocosDeMemoriaLivre = new HashMap<>();
+                for (int i = 0; i < this.tamanhoMemoria; i++)
+                {
+                    if(this.memoria[i] == null)
+                    {
+                        int contaEspacosLivres = 0;
+                        int posicaoInicialIndice = i;
+                        for ( ; i < this.tamanhoMemoria; i++)
+                        {
+                            if(this.memoria[i] == null)
+                            {
+                                contaEspacosLivres++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        mapaDeBlocosDeMemoriaLivre.put(posicaoInicialIndice, contaEspacosLivres);
+                    }
+                }
+                System.out.print("BLOCOS DE MEMORIA LIVRE: " + mapaDeBlocosDeMemoriaLivre.size() + " ");
+                int counter = 0;
+                for (Map.Entry<Integer, Integer> entry : mapaDeBlocosDeMemoriaLivre.entrySet())
+                {
+                    System.out.print("[#" + counter + ": posicao=" + entry.getKey() + ", tamanho=" + entry.getValue() + "] ");
+                    counter++;
+                }
+                System.out.println();
+            break;
+        }
+
         // processos
-        System.out.println("LISTA DE PROCESSOS:");
+        System.out.println("LISTA DE PROCESSOS ALOCADOS:");
         listaDeProcessos.sort((p1, p2) -> p1.getPosicaoDeMemoria() - p2.getPosicaoDeMemoria());
         if (listaDeProcessos.size() > 0)
         {
@@ -466,6 +532,5 @@ public class Kernel implements PrimitivasDeMemoria
         {
             System.out.println("Nenhum processo alocado.");
         }
-
     }
 }

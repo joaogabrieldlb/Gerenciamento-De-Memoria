@@ -36,27 +36,25 @@ public class OS {
     
 	public static void imprimeHelp()
     {
-        // TODO: Reescrever help
-        System.out.println("Inicia o OS.");
+        System.out.println("Inicia o Gerenciador de Memoria do OS.");
         imprimeLinhaDeComando();
         System.out.println();
         System.out.println("-T\t\tExecuta o MODO DE TESTE (ignora demais argumentos)");
         System.out.println();
-        System.out.println("-P\t\tDefine a politica de escalonamento");
-        System.out.println("politica\tEscolhe a politica de escalonamento:");
-        System.out.println("PP\t\tPRIORIDADE COM PREEMPCAO");
-        System.out.println("RR quantum\tROUND ROBIN com quantum");
-        System.out.println("quantum\t\tDefine numero de passos executado por cada processo");
+        System.out.println("-P\t\tDefine o tipo de particionamento:");
+        System.out.println("PF\t\tPARTICIONAMENTO FIXO");
+        System.out.println("tamanho_da_particao\tDefine o tamanho da particao (deve ser potencia de 2)");
         System.out.println();
-        System.out.println("-L\t\tDefine a lista de programas a ser executado");
-        System.out.println("lista_de_programas [arrival_time] [prioridade]\n\t\tIndica o(s) programa(s) a ser(em) carregado(s)");
+        System.out.println("PV\t\tPARTICIONAMENTO VARIAVEL");
+        System.out.println("politica_de_alocacao\tDefine a politica de alocacao:");
+        System.out.println("\t\t\tFF\tFITST-FIT");
+        System.out.println("\t\t\tWF\tWORST-FIT");
         System.out.println();
-        System.out.println("arrival_time\tDefine o tempo de chegada de cada processo (tempo do passos de execucao do OS)");
+        System.out.println("-M\t\tDefine o tamanho da memoria");
+        System.out.println("\t\ttamanho_da_memoria\tDefine o tamanho em posicoes de memoria (deve ser potencia de 2)");
         System.out.println();
-        System.out.println("prioridade\tDefine a prioridade de execucao de cada processo (requer politica PP):");
-        System.out.println("0\t\tprioridade ALTA");
-        System.out.println("1\t\tprioridade MEDIA");
-        System.out.println("2\t\tprioridade BAIXA");
+        System.out.println("-A\t\tDefine o arquivo");
+        System.out.println("\tnome_do_arquivo\tDefine o nome do arquivo (case-sensitive)");
         System.out.println();
         System.out.println("-V\t\tHabilita o MODO VERBOSO");
 	}

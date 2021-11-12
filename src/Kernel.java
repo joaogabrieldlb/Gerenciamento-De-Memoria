@@ -112,7 +112,7 @@ public class Kernel implements PrimitivasDeMemoria
             case "PF":
                 this.tipoDeParticionamento = TipoDeParticao.PARTICOES_FIXAS;
                 // VERBOSE
-                if (OS.verbose) System.out.println("TIPO DE PARTIOCIONAMENTO: " + this.tipoDeParticionamento);
+                if (OS.verbose) System.out.println("TIPO DE PARTICIONAMENTO: " + this.tipoDeParticionamento);
                 // Configuracao do tamanho da particao de memoria
                 try {
                     this.tamanhoDaParticao = Integer.parseInt(listaDeParametros.get(indexP + 2));
